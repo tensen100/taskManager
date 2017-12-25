@@ -1,5 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "them";
+//@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+//@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+//@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+//@import "~@angular/material/prebuilt-themes/purple-green.css";
 html,body,app-root,mat-sidenav-container,.site{
   display: block;
   width: 100%;
@@ -19,3 +22,6 @@ main{
   // @angular/material 中的很多控件使用了flex布局
   flex: 1 1 auto;
 }
+.full-width{
+  width: 100%;
+ }

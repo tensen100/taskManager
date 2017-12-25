@@ -1,13 +1,13 @@
-<mat-sidenav-container>
+<mat-sidenav-container [class.unicorn-dark-theme]="darkTheme">
   <mat-sidenav #sidenav mode="side">
-    <app-sidebar></app-sidebar>
+    <app-sidebar (navClick)="sidenav.toggle()"></app-sidebar>
   </mat-sidenav>
   <div class="site">
     <header>
-      <app-header (toggle)="sidenav.toggle()"></app-header>
+      <app-header (toggle)="sidenav.toggle()" (toggleDarkThem)="switchTheme($event)"></app-header>
     </header>
     <main>
-      <button>打开侧边栏</button>
+      <router-outlet></router-outlet>
     </main>
     <footer>
       <app-footer></app-footer>
