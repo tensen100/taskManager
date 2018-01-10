@@ -20,13 +20,11 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>每日佳句</mat-card-title>
-      <mat-card-subtitle>
-        活着只为发现美，其他一切只是为了等待
-      </mat-card-subtitle>
+      <mat-card-subtitle>{{quote?.cn}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="/assets/imgs/img_01.jpg">
+    <img mat-card-image [src]="quote?.pic">
     <mat-card-content>
-      We live only to discover beauty. All else is a form of waiting.
+     {{quote?.en}}
     </mat-card-content>
   </mat-card>
 </form>

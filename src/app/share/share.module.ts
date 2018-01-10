@@ -50,7 +50,6 @@ import { ImageListSelectComponent } from './image-list-select/image-list-select.
     MatRadioModule,
     MatSelectModule,
     DirectiveModule,
-    ImageListSelectComponent
   ],
   exports: [
     CommonModule, // 其他模块不必再导入CommonModule
@@ -78,6 +77,7 @@ import { ImageListSelectComponent } from './image-list-select/image-list-select.
     ImageListSelectComponent
   ],
   declarations: [
+    ImageListSelectComponent,
     ConfirmDialogComponent,
   ],
   entryComponents: [

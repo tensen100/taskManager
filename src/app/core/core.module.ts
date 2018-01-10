@@ -1,10 +1,12 @@
 import { NgModule, SkipSelf, Optional } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ShareModule } from '../share/share.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '../app-routing.module';
+import { ServiceModule } from '../service/service.module';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -14,13 +16,16 @@ import { loadSvgResources } from '../utils/svg.util';
 
 import 'hammerjs';
 import 'rxjs/add/operator/take';
+import '../utils/debug.util';
 
 @NgModule({
   imports: [
     HttpClientModule,
+    HttpModule,
     ShareModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ServiceModule.forRoot()
   ],
   declarations: [
     HeaderComponent,
@@ -32,6 +37,14 @@ import 'rxjs/add/operator/take';
     FooterComponent,
     SidebarComponent,
     AppRoutingModule
+  ],
+  providers: [
+    {
+      provide: 'BASE_CONFIG',
+      useValue: {
+        uri: 'http://localhost:3000'
+      }
+    }
   ]
 })
 /**

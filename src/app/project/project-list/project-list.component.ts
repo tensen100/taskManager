@@ -18,19 +18,19 @@ export class ProjectListComponent implements OnInit {
     {
       name: '企业协作平台',
       desc: '这是一个内部项目',
-      coverImg: 'assets/imgs/img_01.jpg',
+      coverImg: 'assets/img/img_01.jpg',
       id: 1
     },
     // {
     //   name: '企业协作平台',
     //   desc: '这是一个内部项目',
-    //   coverImg: 'assets/imgs/img_01.jpg',
+    //   coverImg: 'assets/img/img_01.jpg',
     //   id: 2
     // },
     {
       name: '企业协作平台',
       desc: '这是一个内部项目',
-      coverImg: 'assets/imgs/img_01.jpg',
+      coverImg: 'assets/img/img_01.jpg',
       id: 3
     }
   ];
@@ -43,12 +43,12 @@ export class ProjectListComponent implements OnInit {
       this.projects = [...this.projects, {
         id: Math.floor(Math.random() * 100),
         name: '新项目', desc: '这是一个新项目',
-        coverImg: 'assets/imgs/img_01.jpg'
+        coverImg: 'assets/img/img_01.jpg'
       },
         {
           id: Math.floor(Math.random() * 100),
           name: '新项目', desc: '这是一个新项目',
-          coverImg: 'assets/imgs/img_01.jpg'
+          coverImg: 'assets/img/img_01.jpg'
         }];
     });
   }

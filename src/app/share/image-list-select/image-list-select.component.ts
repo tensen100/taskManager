@@ -1,5 +1,5 @@
 import {Component, forwardRef, Input} from '@angular/core';
-import {ControlValueAccessor, FormControl, NG_ASYNC_VALIDATORS, NG_VALIDATORS} from '@angular/forms';
+import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
   selector: 'app-image-list-select',
@@ -7,7 +7,7 @@ import {ControlValueAccessor, FormControl, NG_ASYNC_VALIDATORS, NG_VALIDATORS} f
   styleUrls: ['./image-list-select.component.scss'],
   providers: [
     {
-      provide: NG_ASYNC_VALIDATORS,
+      provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ImageListSelectComponent),
       multi: true
     },
@@ -18,7 +18,7 @@ import {ControlValueAccessor, FormControl, NG_ASYNC_VALIDATORS, NG_VALIDATORS} f
     }
   ]
 })
-export class ImageListSelectComponent implements ControlValueAccessor{
+export class ImageListSelectComponent implements ControlValueAccessor {
   @Input() title = '选择';
   @Input() cols = 6;
   @Input() rowHeight = '64px';
@@ -38,7 +38,8 @@ export class ImageListSelectComponent implements ControlValueAccessor{
     this.selected = obj;
   }
   registerOnChange(fn: any): void {
-    this.propagateChange(this.selected);
+    // this.propagateChange(this.selected);
+    this.propagateChange = fn;
   }
   registerOnTouched(fn: any): void {}
   validate(c: FormControl): {[key: string]: any} {

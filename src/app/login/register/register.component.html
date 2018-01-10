@@ -18,8 +18,10 @@
       </mat-input-container>
       <app-image-list-select
         [useSvgIcon]="true"
-        [cols]="6" title="选择头像"
-        [items]="items" formControlName="avatar">
+        [cols]="6"
+        title="选择头像"
+        [items]="items"
+        formControlName="avatar">
 
       </app-image-list-select>
       <!--<mat-grid-list cols="6">-->
@@ -34,4 +36,5 @@
       <p>忘记密码？<a href="">登录</a></p>
     </mat-card-actions>
   </mat-card>
+  <p>{{form.value | json}}</p>
 </form>
