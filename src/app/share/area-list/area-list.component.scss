@@ -1,0 +1,10 @@
+.street{
+  flex: 1 1 100%;
+}
+.address-group{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+}

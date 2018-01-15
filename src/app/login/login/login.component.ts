@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { QuoteService } from '../../service/quote.service';
-import { Quote } from '../../domain/quote.model';
+import { Quote } from '../../domain';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../reducers';
+import * as actions from '../../actions/quote.action';
 
 
 @Component({
@@ -12,11 +16,19 @@ import { Quote } from '../../domain/quote.model';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-  quote: Quote;
-  constructor(private fb: FormBuilder, private  quoteService: QuoteService) {
-    this.quoteService.getQuote().subscribe( q => {
-      this.quote = q;
-    });
+  // quote: Quote;
+  quote$: Observable<Quote>;
+  constructor(
+    private fb: FormBuilder,
+    private  quoteService: QuoteService,
+    private store$: Store<fromRoot.State> ) {
+    this.quote$ = this.store$.select(state => state.quote.quote);
+    this.quoteService
+      .getQuote()
+      .subscribe( q => {
+        // this.quote = q;
+        this.store$.dispatch({type: actions.QUOTE_SUCCESS, payload: q});
+      });
   }
 
   ngOnInit() {

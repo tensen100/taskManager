@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
-import 'rxjs/add/operator/do';
 
 declare module 'rxjs/Observable' {
   interface Observable<T> {
