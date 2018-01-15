@@ -90,6 +90,7 @@ import { AreaListComponent } from './area-list/area-list.component';
     ImageListSelectComponent,
     AgeInputComponent,
     ChipsListComponent,
+    IdentityInputComponent,
     AreaListComponent,
     ChipsListComponent,
   ],

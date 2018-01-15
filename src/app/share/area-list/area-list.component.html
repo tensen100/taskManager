@@ -4,7 +4,7 @@
       placeholder="请输入省份"
       [(ngModel)]="_address.province"
       (change)="onProvinceChange()">
-      <mat-option *ngFor="let p of provinces | async" [value]="p">
+      <mat-option *ngFor="let p of provinces | async" [value]="p"></mat-option>
     </mat-select>
   </div>
   <div>

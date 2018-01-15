@@ -10,7 +10,7 @@ export class QuoteService {
     const uri = `${this.config.uri}/quotes/${Math.floor(Math.random() * 10)}`;
     return this.http.get(uri)
       // .do( (x) => console.log(x))
-      .debug('quote:')
+      // .debug('quote:')
       .map( res => res.json() as Quote);
   }
 }
