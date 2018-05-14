@@ -5,7 +5,8 @@ import { Quote } from '../../domain';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../reducers';
-import * as actions from '../../actions/quote.action';
+import * as quoteActions from '../../actions/quote.action';
+import * as authActions from '../../actions/auth.action';
 
 
 @Component({
@@ -21,14 +22,17 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private  quoteService: QuoteService,
-    private store$: Store<fromRoot.State> ) {
-    this.quote$ = this.store$.select(state => state.quote.quote);
-    this.quoteService
-      .getQuote()
-      .subscribe( q => {
-        // this.quote = q;
-        this.store$.dispatch({type: actions.QUOTE_SUCCESS, payload: q});
-      });
+    private store$: Store<fromRoot.State>
+  ) {
+      this.quote$ = this.store$.select(fromRoot.getQuote);
+      this.store$.dispatch(new quoteActions.LoadAction(null));
+      // this.store$.dispatch(new actions.LoadSuccessAction(null));
+/*      this.quoteService
+        .getQuote()
+        .subscribe( q => {
+          // this.quote = q;
+          this.store$.dispatch(new actions.LoadSuccessAction(q));
+        });*/
   }
 
   ngOnInit() {
@@ -45,7 +49,9 @@ export class LoginComponent implements OnInit {
   onSubmit({value, valid}, ev: Event) {
     ev.preventDefault();
     // 提交时验证
-    this.form.controls['email'].setValidators(this.validate);
+    // this.form.controls['email'].setValidators(this.validate);
+    if (!valid) { return; }
+    this.store$.dispatch(new authActions.LoginAction(value));
     console.log(JSON.stringify(value));
     console.log(valid);
   }

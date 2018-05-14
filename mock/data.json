@@ -19,6 +19,22 @@
       "projectIds": [
         "1"
       ]
+    },
+    {
+      "email": "wang@163.com",
+      "password": "Ls123456",
+      "id": "8PasB8Q"
+    },
+    {
+      "email": "lt@163.com",
+      "name": "lt",
+      "password": "lt123456",
+      "repeat": "lt123456",
+      "avatar": "avatars:svg-12",
+      "dateOfBirth": "2000-01-01",
+      "address": null,
+      "identity": null,
+      "id": "THwhtjo"
     }
   ],
   "projects": [

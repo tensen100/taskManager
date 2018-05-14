@@ -33,9 +33,16 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/count';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/reduce';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/defaultIfEmpty';
+import 'rxjs/add/operator/withLatestFrom';
 
 import '../utils/debug.util';
 import { loadSvgResources } from '../utils/svg.util';
+import { EffectsModule } from '@ngrx/effects';
+import { QuoteEffects } from '../effects/quote.effects';
+import { AuthEffects } from '../effects/auth.effects';
+import { ProjectEffects } from '../effects/project.effects';
 
 @NgModule({
   imports: [
@@ -44,8 +51,9 @@ import { loadSvgResources } from '../utils/svg.util';
     ShareModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ServiceModule.forRoot(),
     AppStoreModule,
-    ServiceModule.forRoot()
+    EffectsModule.forRoot([QuoteEffects, AuthEffects, ProjectEffects])
   ],
   declarations: [
     HeaderComponent,

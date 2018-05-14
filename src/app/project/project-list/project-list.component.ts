@@ -9,6 +9,10 @@ import { ProjectService } from '../../service/project.service';
 import { Project } from '../../domain';
 import { Subscription } from 'rxjs/Subscription';
 import * as _ from 'lodash';
+import {Store} from '@ngrx/store';
+import * as fromRoot from '../../reducers';
+import {Observable} from 'rxjs/Observable';
+import {ProjectAddAction, ProjectDeleteAction, ProjectLoadAction, ProjectUpdateAction} from '../../actions/project.action';
 
 
 @Component({
@@ -20,19 +24,27 @@ import * as _ from 'lodash';
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
   @HostBinding('@routeAnimation')
-  projects;
-  sub: Subscription;
-  constructor(private dialog: MatDialog, private cd: ChangeDetectorRef, private service: ProjectService) {}
+  projects$: Observable<Project[]>;
+  listAnim$: Observable<number>;
+  // sub: Subscription;
+  constructor(
+    private dialog: MatDialog,
+    private cd: ChangeDetectorRef,
+    private store$: Store<fromRoot.State>) {
+    this.store$.dispatch(new ProjectLoadAction(null));
+    this.projects$ = this.store$.select(fromRoot.getProjects);
+    this.listAnim$ = this.projects$.map( p => p.length);
+  }
   ngOnInit() {
-    this.sub = this.service.get('1').subscribe(projects => {
+   /* this.sub = this.service.get('1').subscribe(projects => {
       this.projects = projects;
       this.cd.markForCheck(); // 脏值检测
-    } );
+    } );*/
   }
   ngOnDestroy() {
-    if (this.sub) {
+   /* if (this.sub) {
       this.sub.unsubscribe();
-    }
+    }*/
   }
   openNewProjectDialog() {
     const selectedImg = `/assets/img/covers/cover${Math.floor(Math.random() * 15) + 1}.jpg`;
@@ -45,11 +57,17 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .take(1) // 使用一次销毁
       .filter( n => n)
+      .subscribe( project => {
+        this.store$.dispatch(new ProjectAddAction(project));
+    });
+/*    dialogRef.afterClosed()
+      .take(1) // 使用一次销毁
+      .filter( n => n)
       .switchMap( v => this.service.add(v))
       .subscribe( project => {
         this.projects = [...this.projects, project];
         this.cd.markForCheck();
-    });
+    });*/
   }
   launchInviteDialog() {
     const dialogRef = this.dialog.open(InviteComponent, {
@@ -68,13 +86,19 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .take(1) // 使用一次销毁
       .filter( n => n)
+      .subscribe( p => {
+        this.store$.dispatch(new ProjectUpdateAction(p));
+      });
+/*    dialogRef.afterClosed()
+      .take(1) // 使用一次销毁
+      .filter( n => n)
       .switchMap( v => this.service.update({...v, id: project.id}))
       .subscribe( p => {
         const index = this.projects.map(d => d.id).indexOf(p.id);
         console.log(index);
         this.projects = [...this.projects.slice(0, index), p, ...this.projects.slice(index + 1)];
         this.cd.markForCheck();
-      });
+      });*/
     // const dialogRef = this.dialog.open(NewProjectComponent, { data: {title: '编辑项目：'}});
   }
   launchConfirmDialog(project) {
@@ -87,11 +111,17 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .take(1) // 使用一次销毁
       .filter( n => n)
+      .subscribe( p => {
+       this.store$.dispatch(new ProjectDeleteAction(p));
+      });
+   /* dialogRef.afterClosed()
+      .take(1) // 使用一次销毁
+      .filter( n => n)
       .switchMap(() => this.service.del(project))
       .subscribe( prj => {
         this.projects = this.projects.filter(p => p.id !== prj.id);
         this.cd.markForCheck();
-      });
+      });*/
     // dialogRef.afterClosed().subscribe(result => {
     //   console.log(result);
     //   this.projects = this.projects.filter( p => p.id !== project.id);

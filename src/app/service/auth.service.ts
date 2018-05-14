@@ -15,7 +15,6 @@ export class AuthService {
     '.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ';
   constructor(private http: Http, @Inject('BASE_CONFIG') private config) {}
   register(user: User): Observable<Auth> {
-    user.id = null;
     const uri = `${this.config.uri}/${this.domain}`;
     return this.http
       .get(uri, {params: {'email': user.email}})
@@ -30,10 +29,11 @@ export class AuthService {
   }
   login(username: string, password: string): Observable<Auth> {
     const uri = `${this.config.uri}/${this.domain}`;
+    console.log('login start')
     return this.http
       .get(uri, {params: {'email': username, 'password': password}})
       .map(res => {
-        if(res.json().length === 0) {
+        if (res.json().length === 0) {
           throw new Error('username or password not match');
         }
         return {

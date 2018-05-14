@@ -1,5 +1,5 @@
-import * as quoteAction from '../actions/quote.action';
-import {Quote} from '../domain';
+import { QuoteActions, QuoteActionTypes } from '../actions/quote.action';
+import { Quote } from '../domain';
 
 export interface State {
   quote: Quote;
@@ -13,14 +13,16 @@ export const  initialState: State = {
   }
 };
 
-export function reducer(state = initialState, action: {type: string, payload: any} ): State{
+export function reducer(state = initialState, action: QuoteActions ): State {
   switch (action.type) {
-    case quoteAction.QUOTE_SUCCESS: {
-      return {...state, quote: action.payload};
+    case QuoteActionTypes.LOAD_SUCCESS: {
+      return {...state, quote: <Quote> action.payload};
     }
-    case quoteAction.QUOTE_FAIL:
+    case QuoteActionTypes.LOAD_FAIL:
     default: {
       return state;
     }
   }
 }
+
+export const getQuote = (state: State) => state.quote;

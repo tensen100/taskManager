@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {AuthGuard} from './service/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -10,12 +11,14 @@ const routes: Routes = [
   {
     path: 'project',
     redirectTo: '/project',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: 'tasklists',
     redirectTo: '/tasklists',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
 
   }
 ];
